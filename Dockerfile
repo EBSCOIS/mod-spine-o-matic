@@ -1,12 +1,23 @@
-FROM folioci/alpine-jre-openjdk11:latest
+# build base image
+FROM maven:3-openjdk-11-slim as maven
 
-ENV VERTICLE_FILE mod-spine-o-matic-fat.jar
+# copy pom.xml
+COPY ./pom.xml ./pom.xml
 
-# Set the location of the verticles
-ENV VERTICLE_HOME /usr/verticles
+# copy src files
+COPY ./src ./src
 
-# Copy your fat jar to the container
-COPY target/${VERTICLE_FILE} ${VERTICLE_HOME}/${VERTICLE_FILE}
+# build
+RUN mvn package
+
+# final base image
+FROM openjdk:11-jre-slim
+
+# set deployment directory
+WORKDIR /mod-spine-o-matic
+
+# copy over the built artifact from the maven image
+COPY --from=maven /target/mod-spine-o-matic*.jar ./mod-spine-o-matic.jar
 
 # Expose this port locally in the container.
 EXPOSE 8081
