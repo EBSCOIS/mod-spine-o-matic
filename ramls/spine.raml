@@ -1,0 +1,20 @@
+#%RAML 1.0
+
+title: Spine
+version: v1.0
+protocols: [ HTTP, HTTPS ]
+baseUri: http://localhost
+
+documentation:
+  - title: Spine API
+    content: This documents the API calls that can be made to get spine labels
+
+/spine-label?identifier={id}:
+  get:
+    description: Get spine label by ID.
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            description: Get spine label by ID.
