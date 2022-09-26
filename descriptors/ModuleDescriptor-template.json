@@ -9,7 +9,7 @@
       "handlers": [
         {
           "methods": ["GET"],
-          "pathPattern": "/spine-label/{identifier}",
+          "pathPattern": "/spine-label",
           "permissionsRequired": []
         }
       ]
