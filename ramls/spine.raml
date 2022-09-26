@@ -9,12 +9,16 @@ documentation:
   - title: Spine API
     content: This documents the API calls that can be made to get spine labels
 
-/spine-label?identifier={id}:
+/spine-label:
   get:
     description: Get spine label by ID.
+    queryParameters:
+      identifier:
+        description: ID
+        type: string
+        required: true
     responses:
       200:
         description: OK
         body:
           application/json:
-            description: Get spine label by ID.
